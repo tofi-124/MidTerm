@@ -48,12 +48,162 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-app.get("/", (req, res) => {
+app.get("/index", (req, res) => {
   res.render("index");
 });
 
+//Start initialization
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`Example app listening on port ${PORT}!`);
 });
 
 
+//-----------------------------------------------------------------//
+//---------------------------->>> NPMS <<<-------------------------//
+//-----------------------------------------------------------------//
+
+// Setting up cookie session
+// http://expressjs.com/en/resources/middleware/cookie-session.html
+let cookieSession = require("cookie-session");
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["key"],
+  })
+);
+
+// Body parser
+// https://www.npmjs.com/package/body-parser
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Bcrypt
+// https://www.npmjs.com/package/bcrypt
+const bcrypt = require("bcryptjs");
+const { restart } = require("nodemon");
+
+// Helpers
+const {
+  getUserByEmail,
+  passwordFinder,
+} = require("./helpers");
+
+//-----------------------------------------------------------------//
+//---------------------------->>> Node.js <<<----------------------//
+//-----------------------------------------------------------------//
+const users = {}; //temp user database
+const database = {};// temp file database
+
+// home
+app.get("/", (req, res) => res.redirect("/home"));
+
+app.get("/home", (req, res) => {
+  if (req.session.user_id) {
+    res.redirect("/notes");
+  } else {
+    const templateVars = {
+      user: users[req.session.user_id],
+      user_id: req.session.user_id,
+    };
+    res.render("landingpage", templateVars);
+  }
+});
+
+//register page
+app.get("/register", (req, res) => {
+  if (req.session.user_id) res.redirect("/notes");
+  else {
+    const templateVars = {
+      user: users[req.session.user_id],
+      user_id: req.session.user_id,
+    };
+    res.render("register", templateVars);
+  }
+});
+
+app.post("/register", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const id = req.body.username;
+  const hashedPassword = bcrypt.hashSync(password, 10);
+
+  users[id] = {
+    id: id,
+    email: email,
+    password: hashedPassword,
+  };
+
+  req.session.user_id = users[id].id;
+
+  const templateVars = {
+    user: users[req.session.user_id],
+    user_id: req.session.user_id,
+  };
+
+  res.redirect("/notes");
+});
+
+// login page
+app.get("/login", (req, res) => {
+  if (req.session.user_id) res.redirect("/notes");
+  else {
+    const templateVars = {
+      user: users[req.session.user_id],
+      user_id: req.session.user_id,
+    };
+    res.render("login", templateVars);
+  }
+});
+
+app.post("/login", (req, res) => {
+  if (req.session.user_id) res.redirect("/notes");
+  else {
+    const templateVars = {};
+    let email = req.body.email;
+    let password = req.body.password;
+    let myUser = passwordFinder(users, email, password);
+
+    if (myUser) {
+      req.session.user_id = myUser["id"];
+      res.redirect("/notes");
+    } else {
+      res.status(400).send("doesn't match anything in the database!");
+    }
+  }
+});
+
+// Logout
+app.post("/logout", (req, res) => {
+  req.session = null;
+  res.redirect("/home");
+});
+
+// Note
+app.get("/notes",(req, res) => {
+  const templateVars = {
+    user: users[req.session.user_id],
+    user_id: req.session.user_id,
+  };
+  res.render("notes_show", templateVars);
+})
+
+// New note
+app.get("/notes/new",(req, res) => {
+  if (!req.session.user_id) res.redirect("/register");
+
+  const templateVars = {
+    user: users[req.session.user_id],
+    user_id: req.session.user_id,
+  };
+  res.render("notes_new", templateVars);
+})
+
+app.post("/notes/new",(req, res) => {
+  if (!req.session.user_id) res.redirect("/register");
+
+  const templateVars = {
+    user: users[req.session.user_id],
+    user_id: req.session.user_id,
+  };
+  res.render("notes_new", templateVars);
+})
