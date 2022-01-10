@@ -8,18 +8,19 @@ module.exports = (db) => {
       return;
     }
     const templateVars = {
-      user: users[req.session.user_id],
-      user_id: req.session.user_id,
+      user_id: req.session.user_id
     };
     res.render("notes_new", templateVars);
   })
 
   router.post("/", (req, res) => {
-    if (!req.session.user_id) res.redirect("/register");
+    if (!req.session.user_id) {
+      res.redirect("/register")
+      return;
+  }
 
     const templateVars = {
-      user: users[req.session.user_id],
-      user_id: req.session.user_id,
+      user_id: req.session.user_id
     };
     res.render("notes_new", templateVars);
   })
