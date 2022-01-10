@@ -45,7 +45,7 @@ module.exports = (db) => {
 
         res.redirect("/notes");
       })
-      .catch((err) => res.send("error", err.message));
+      .catch((err) => res.send("error" + err.message));
   });
 
   return router;
