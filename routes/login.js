@@ -2,26 +2,9 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 
-const loginCheck = function (email, password) {
-  return db
-    .query(`SELECT * FROM users WHERE email = $1;`, [email])
-    .then((res) => {
-      if (res.rows) {
-        return res.rows[0];
-      }
-      return null;
-    })
-    .then((user) => {
-      if (bcrypt.compareSync(password, user.password)) {
-        return user;
-      }
-      return null;
-    });
-};
-
-exports.loginCheck = loginCheck;
 
 module.exports = (db) => {
+
   router.get("/", (req, res) => {
     if (req.session.user_id) {
       res.redirect("/notes");
@@ -32,6 +15,23 @@ module.exports = (db) => {
     };
     res.render("login", templateVars);
   });
+
+  const loginCheck = function (email, password) {
+    return db
+      .query(`SELECT * FROM users WHERE email = $1;`, [email])
+      .then((res) => {
+        if (res.rows) {
+          return res.rows[0];
+        }
+        return null;
+      })
+      .then((user) => {
+        if (bcrypt.compareSync(password, user.password)) {
+          return user;
+        }
+        return null;
+      });
+  };
 
   router.post("/", (req, res) => {
     const { email, password } = req.body;

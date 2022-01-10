@@ -4,7 +4,7 @@ const router  = express.Router();
 module.exports = (db) => {
   router.get("/", (req, res) => {
     if (!req.session.user_id) {
-      res.redirect("/register")
+      res.redirect("/home")
       return;
     }
     const templateVars = {

@@ -29,11 +29,6 @@ module.exports = (db) => {
           res.send({ error: "Please enter username, email and password" });
           return;
         }
-        req.session.user_id = user.id;
-        const templateVars = {
-          user_id: req.session.user_id
-        };
-
         res.redirect("/login");
       })
       .catch(err => {
