@@ -1,21 +1,15 @@
 const express = require("express");
+const bcrypt = require("bcryptjs");
+const { loginCheck } = require("../helpers");
 const router = express.Router();
-const bcrypt = require("bcrypt");
 
 //register page
 module.exports = (db) => {
-  router.get("/", (req, res) => {
-    if (req.session.user_id) {
-      res.redirect("/notes");
-      return;
-    }
-    const templateVars = {
-      user_id: null,
-    };
-    res.render("register", templateVars);
-  });
+  router.get("/hello", (req, res) => {
+    res.send("HELLO FROM AUTH!");
+  })
 
-  router.post("/", (req, res) => {
+  router.post("/register", (req, res) => {
     const user = req.body;
     user.password = bcrypt.hashSync(user.password, 10);
 
@@ -37,5 +31,26 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  router.post("/login", (req, res) => {
+    const { email, password } = req.body;
+    loginCheck(email, password, db)
+      .then((user) => {
+        if (!user) {
+          res.redirect("/home");
+          return;
+        }
+        req.session.user_id = user.id;
+
+        res.redirect("/notes");
+      })
+      .catch((err) => res.send("error", err.message));
+  });
+
+  router.post('/logout', (req, res) => {
+    req.session = null;
+    res.redirect("/");
+  })
+
   return router;
 };
