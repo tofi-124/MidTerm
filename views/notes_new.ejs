@@ -3,11 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Landing Page</title>
+    <title>All Resources</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
+
+    <link rel="stylesheet" href="./styles/layout.css">
 
     <!-- Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -15,16 +17,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-  </head>
-  <link rel="stylesheet" href="./styles/layout.css">
 
-  <header>
-    <!-- Navigation -->
-    <%- include('partials/_header') %>
-  </header>
+  </head>
   <body>
-    <main style="margin: 1em">
-          <h2>Create a new resource... <i class="fas fa-pencil-alt prefix"></i> </h2>
+      <!-- Navigation -->
+      <%- include('partials/_header') %>
+
+      <h2>Create a new resource... <i class="fas fa-pencil-alt prefix"></i> </h2>
 
           <form action="/api/v1/auth/notes/new" method="POST">
 
@@ -52,8 +51,8 @@
 
         </div>
       </div>
-    </main>
 
-    <%- include('partials/_footer.ejs') %>
+      <%- include('partials/_footer.ejs') %>
+
   </body>
 </html>
