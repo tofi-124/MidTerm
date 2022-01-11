@@ -57,7 +57,7 @@ module.exports = (db) => {
 
       const resources = await db.query(`SELECT * FROM URLs;`);
       const templateVars = {
-        user_id: validUser.rows[0].id,
+        user_id: validUser.rows[0].name,
         notes: resources.rows
       }
       return res.render("notes_index", templateVars);
@@ -79,7 +79,7 @@ module.exports = (db) => {
       }
 
       const templateVars = {
-        user_id: validUser.rows[0].id
+        user_id: validUser.rows[0].name
       }
       return res.render("notes_new", templateVars);
     } catch (error) {
@@ -101,7 +101,7 @@ module.exports = (db) => {
 
       const resources = await db.query(`SELECT * FROM URLs WHERE id = $1;`, [req.params.id]);
       const templateVars = {
-        user_id: validUser.rows[0].id,
+        user_id: validUser.rows[0].name,
         note: resources.rows[0]
       }
       return res.render("notes_show", templateVars);
