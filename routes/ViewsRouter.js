@@ -101,7 +101,7 @@ module.exports = (db) => {
 
       const resources = await db.query(`SELECT * FROM URLs WHERE user_id = $1;`, [user_id]);
       const templateVars = {
-        user_id: validUser.rows[0].id,
+        user_id: validUser.rows[0].name,
         notes: resources.rows
       }
       return res.render("notes_myresources", templateVars);
