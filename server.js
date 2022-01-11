@@ -6,20 +6,9 @@ const express = require("express");
 const morgan = require("morgan");
 const { Pool } = require("pg");
 const cookieSession = require("cookie-session");
-const bcrypt = require("bcryptjs");
 
 const dbParams = require("./lib/db.js");
 const sassMiddleware = require("./lib/sass-middleware");
-const {
-  getUserByEmail,
-  passwordFinder,
-} = require("./helpers");
-
-
-// Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
-// const usersRoutes = require("./routes/users");
-// const widgetsRoutes = require("./routes/widgets");
 
 const routes = require('./routes');
 

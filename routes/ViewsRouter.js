@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcryptjs");
-
 
 module.exports = (db) => {
   router.get("/hello", (req, res) => {
@@ -10,93 +8,115 @@ module.exports = (db) => {
 
   //-------------------VIEW HOMEPAGE ----------------------//
   router.get("/", (req, res) => {
-    if (req.session.user_id) {
-      res.redirect("/notes");
-    } else {
-      const templateVars = {
-        user_id: req.session.user_id
-      };
-      res.render("landingpage", templateVars);
-    }
-  })
-
-  //-------------------VIEW AUTHROUTES ----------------------//
-  router.get("/register", (req, res) => {
-    if (req.session.user_id) {
-      res.redirect("/notes");
-      return;
-    }
-    const templateVars = {
-      user_id: null,
-    };
-    res.render("register", templateVars);
-  });
-
-  router.get("/login", (req, res) => {
-    if (req.session.user_id) {
-      res.redirect("/notes");
-      return;
+    const { user_id } = req.session;
+    if (user_id) {
+      return res.redirect("/notes");
     }
     const templateVars = {
       user_id: null
     };
-    res.render("login", templateVars);
+    return res.render("index", templateVars)
+  });
+
+  //-------------------VIEW AUTHROUTES ----------------------//
+  router.get("/register", (req, res) => {
+    const { user_id } = req.session;
+    if (user_id) {
+      return res.redirect("/notes");
+    }
+    const templateVars = {
+      user_id: null
+    };
+    return res.render("register", templateVars)
+  });
+
+  router.get("/login", (req, res) => {
+    const { user_id } = req.session;
+    if (user_id) {
+      return res.redirect("/notes");
+    }
+    const templateVars = {
+      user_id: null
+    };
+    return res.render("login", templateVars)
   });
 
   //-------------------VIEW NOTES ROUTES ----------------------//
 
-  router.get("/notes", (req, res) => {
-    db.query(`SELECT * FROM URLs;`)
-      .then((data) => {
-        const templateVars = {
-          user_id: req.session.user_id,
-          resources: data.rows
-        };
-        res.render("notes_index", templateVars);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+  router.get("/notes", async (req, res) => {
+    const { user_id } = req.session; // checking cookies
+    if (!user_id) {
+      return res.redirect("/");
+    }
 
-      const { topic } = req.query;
-      db.query(
-        `SELECT title, url, description, rating, comment
-      FROM URLs JOIN url_ratings ON URLs.id = url_id
-      WHERE topic = $1;`, [topic]
-      )
-        .then((data) => {
-        const templateVars = {
-          user_id: req.session.user_id,
-          resources: data.rows
-        };
-        res.render("notes_index", templateVars);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+    try {
+      const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [user_id]) //checking id from the db
+      if (!validUser) {
+        return res.redirect("/");
+      }
+
+      const resources = await db.query(`SELECT * FROM URLs;`);
+      const templateVars = {
+        user_id: validUser.rows[0].id,
+        notes: resources.rows
+      }
+      return res.render("notes_index", templateVars);
+    } catch (error) {
+      return res.status(400).send({message: error.message});
+    }
   });
 
-  router.get("/notes/new", (req, res) => {
-    if (!req.session.user_id) {
-      res.redirect("/")
-      return;
+  router.get("/notes/new", async (req, res) => {
+    const { user_id } = req.session; // checking cookies
+    if (!user_id) {
+      return res.redirect("/");
     }
-    const templateVars = {
-      user_id: req.session.user_id
-    };
-    res.render("notes_new", templateVars);
+
+    try {
+      const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [user_id]) //checking id from the db
+      if (!validUser) {
+        return res.redirect("/");
+      }
+
+      const templateVars = {
+        user_id: validUser.rows[0].id
+      }
+      return res.render("notes_new", templateVars);
+    } catch (error) {
+      return res.status(400).send({message: error.message});
+    }
   })
 
-  router.get("/notes/:id", (req, res) => {
-    if (!req.session.user_id) {
-      res.redirect("/")
-      return;
+  router.get("/notes/:id", async (req, res) => {
+    const { user_id } = req.session; // checking cookies
+    if (!user_id) {
+      return res.redirect("/");
     }
-    const templateVars = {
-      user_id: req.session.user_id
-    };
-    res.render("notes_show", templateVars);
+
+    try {
+      const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [user_id]) //checking id from the db
+      if (!validUser) {
+        return res.redirect("/");
+      }
+
+      const resources = await db.query(`SELECT * FROM URLs WHERE id = $1;`, [req.params.id]);
+      const templateVars = {
+        user_id: validUser.rows[0].id,
+        note: resources.rows[0]
+      }
+      return res.render("notes_show", templateVars);
+    } catch (error) {
+      return res.status(400).send({message: error.message});
+    }
   })
 
   return router;
 };
+
+
+//-----------Query to search by the topic-------------//
+//db.query(
+  //     `SELECT title, url, description, rating, comment
+  //   FROM URLs JOIN url_ratings ON URLs.id = url_id
+  //   WHERE topic = $1;`, [topic]
+  //   )
