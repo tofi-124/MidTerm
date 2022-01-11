@@ -31,7 +31,7 @@ module.exports = (db) => {
           `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *;`,
           [username, email, hashedPassword]
       )
-      return res.redirect("/login");
+      return res.redirect("/notes_show");
     } catch (error) {
       return res.status(400).send({message: error.message});
     }
