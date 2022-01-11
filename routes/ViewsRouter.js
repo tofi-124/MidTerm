@@ -87,7 +87,7 @@ module.exports = (db) => {
     }
   })
 
-  router.get("/notes/:id", async (req, res) => {
+  router.get("/notes/myresources", async (req, res) => {
     const { user_id } = req.session; // checking cookies
     if (!user_id) {
       return res.redirect("/");
@@ -99,16 +99,17 @@ module.exports = (db) => {
         return res.redirect("/");
       }
 
-      const resources = await db.query(`SELECT * FROM URLs WHERE id = $1;`, [req.params.id]);
+      const resources = await db.query(`SELECT * FROM URLs WHERE user_id = $1;`, [user_id]);
       const templateVars = {
-        user_id: validUser.rows[0].name,
-        note: resources.rows[0]
+        user_id: validUser.rows[0].id,
+        notes: resources.rows
       }
-      return res.render("notes_show", templateVars);
+      return res.render("notes_myresources", templateVars);
     } catch (error) {
       return res.status(400).send({message: error.message});
     }
-  })
+
+  });
 
   router.get("/topic", async (req, res) => {
     const { user_id } = req.session; // checking cookies
