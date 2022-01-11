@@ -65,15 +65,12 @@ module.exports = (db) => {
           .send("This user does not exist! You have to register!");
       }
 
-      const passwordMatch = bcrypt.compareSync(
-        password,
-        validUser.rows[0].password
-      ); //checking the existing password with the inserted
+      const passwordMatch = bcrypt.compareSync(password, validUser.rows[0].password); //checking the existing password with the inserted
       if (!passwordMatch) {
         return res.status(400).send("Incorrect password!");
       }
 
-      req.session.user_id = validUser.rows[0].id;
+      req.session.user_id = validUser.rows[0].user_id;
       return res.redirect("/notes");
     } catch (error) {
       return res.status(400).send({ message: error.message });
@@ -85,7 +82,7 @@ module.exports = (db) => {
     return res.redirect("/");
   });
 
-  
+
 
   return router;
 };

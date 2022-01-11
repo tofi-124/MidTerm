@@ -47,8 +47,13 @@
             <p>Topic: <%= note.topic %></p>
             <p><a href="/notes/<%= note.id %>">See MORE</a></p>
           </li>
+
+          <button class="like"><i class="fas fa-heart"></i></button>
+          
         <% }); %>
       </ul>
+
+      <%- include('partials/_footer.ejs') %>
 
   </body>
 </html>
