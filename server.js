@@ -6,20 +6,9 @@ const express = require("express");
 const morgan = require("morgan");
 const { Pool } = require("pg");
 const cookieSession = require("cookie-session");
-const bcrypt = require("bcryptjs");
 
 const dbParams = require("./lib/db.js");
 const sassMiddleware = require("./lib/sass-middleware");
-const {
-  getUserByEmail,
-  passwordFinder,
-} = require("./helpers");
-
-
-// Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
-// const usersRoutes = require("./routes/users");
-// const widgetsRoutes = require("./routes/widgets");
 
 const routes = require('./routes');
 
@@ -86,3 +75,113 @@ app.listen(PORT, () => {
 
 
 
+// app.get("/home", (req, res) => {
+//   if (req.session.user_id) {
+//     res.redirect("/notes");
+//   } else {
+//     const templateVars = {
+//       user: users[req.session.user_id],
+//       user_id: req.session.user_id,
+//     };
+//     res.render("landingpage", templateVars);
+//   }
+// });
+
+//register page
+// app.get("/register", (req, res) => {
+//   if (req.session.user_id) res.redirect("/notes");
+//   else {
+//     const templateVars = {
+//       user: users[req.session.user_id],
+//       user_id: req.session.user_id,
+//     };
+//     res.render("register", templateVars);
+//   }
+// });
+
+// app.post("/register", (req, res) => {
+//   const email = req.body.email;
+//   const password = req.body.password;
+//   const id = req.body.username;
+//   const hashedPassword = bcrypt.hashSync(password, 10);
+
+//   users[id] = {
+//     id: id,
+//     email: email,
+//     password: hashedPassword,
+//   };
+
+//   req.session.user_id = users[id].id;
+
+//   const templateVars = {
+//     user: users[req.session.user_id],
+//     user_id: req.session.user_id,
+//   };
+
+//   res.redirect("/notes");
+// });
+
+// login page
+// app.get("/login", (req, res) => {
+//   if (req.session.user_id) res.redirect("/notes");
+//   else {
+//     const templateVars = {
+//       user: users[req.session.user_id],
+//       user_id: req.session.user_id,
+//     };
+//     res.render("login", templateVars);
+//   }
+// });
+
+// app.post("/login", (req, res) => {
+//   if (req.session.user_id) res.redirect("/notes");
+//   else {
+//     const templateVars = {};
+//     let email = req.body.email;
+//     let password = req.body.password;
+//     let myUser = passwordFinder(users, email, password);
+
+//     if (myUser) {
+//       req.session.user_id = myUser["id"];
+//       res.redirect("/notes");
+//     } else {
+//       res.status(400).send("doesn't match anything in the database!");
+//     }
+//   }
+// });
+
+// Logout
+// app.post("/logout", (req, res) => {
+//   req.session = null;
+//   res.redirect("/home");
+// });
+
+// Note
+// app.get("/notes",(req, res) => {
+//   const templateVars = {
+//     user: users[req.session.user_id],
+//     user_id: req.session.user_id,
+//   };
+//   res.render("notes_show", templateVars);
+// })
+
+// New note
+// app.get("/notes/new",(req, res) => {
+//   if (!req.session.user_id) res.redirect("/register");
+
+//   const templateVars = {
+//     user: users[req.session.user_id],
+//     user_id: req.session.user_id,
+//   };
+//   res.render("notes_new", templateVars);
+// })
+
+// app.post("/notes/new",(req, res) => {
+//   if (!req.session.user_id) res.redirect("/register");
+
+//   const templateVars = {
+//     user: users[req.session.user_id],
+//     user_id: req.session.user_id,
+//   };
+//   res.render("notes_new", templateVars);
+// })

@@ -9,14 +9,15 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
 
+    <link rel="stylesheet" href="./styles/layout.css">
+
     <!-- Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-    <!-- style sheet css -->
-    <%- include('./styles'); %>
+
   </head>
 
   <body>
@@ -24,5 +25,18 @@
       <!-- Navigation -->
       <%- include('partials/_header') %>
 
+<<<<<<< HEAD
+=======
+      <% if(!note){ %>
+       <p>File is not found!</p>
+        <% } else { %>
+          <div>
+            <p>Title: <%= note.title %></p>
+            <p>URL: <%= note.url  %></p>
+            <p>Description: <%= note.description %></p>
+            <p>Topic: <%= note.topic %></p>
+          </div>
+        <% } %>
+>>>>>>> bf06965a21beea5730a4bcad962662fd548e4ed2
   </body>
 </html>

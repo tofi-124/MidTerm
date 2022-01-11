@@ -3,11 +3,11 @@
   <div class="container-fluid">
     <% if(!user_id){ %>
     <b>
-      <a class="navbar-brand">Resource Wall</a>
+      <a class="navbar-brand" href="/">Resource Wall</a>
     </b>
     <% } else { %>
       <b>
-        <a class="navbar-brand">Logged in As: <%= user_id %> </a>
+        <a class="navbar-brand" href="/">Logged in As: <%= user_id %> </a>
       </b>
     <% } %>
 
@@ -22,9 +22,6 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/home">Home</a>
-        </li>
         <% if(!user_id){ %>
           <li class="nav-item">
           <a class="nav-link" href="/login">Login</a>
@@ -39,7 +36,7 @@
           <li class="nav-item">
             <a class="nav-item nav-link" href="/notes/new">Create New Resource</a>
           </li>
-          <form action="/logout" method="post">
+          <form action="/api/v1/auth/logout" method="post">
             <button class="btn btn-outline-dark" type="submit">Logout</button>
           </form>
           <% } %>
