@@ -1,6 +1,5 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
-const { loginCheck } = require("../helpers");
 const router = express.Router();
 
 //register page
@@ -12,7 +11,7 @@ module.exports = (db) => {
   router.post("/register", async (req, res) => {
     const { user_id } = req.session; // checking cookies
     if (user_id) {
-      return res.status(400).send("You are already loged in!");
+      return res.status(400).send("You are already logged in!");
     }
 
     const { username, email, password } = req.body;
@@ -66,7 +65,10 @@ module.exports = (db) => {
           .send("This user does not exist! You have to register!");
       }
 
-      const passwordMatch = bcrypt.compareSync(password, validUser.rows[0].password); //checking the existing password with the inserted
+      const passwordMatch = bcrypt.compareSync(
+        password,
+        validUser.rows[0].password
+      ); //checking the existing password with the inserted
       if (!passwordMatch) {
         return res.status(400).send("Incorrect password!");
       }
@@ -83,5 +85,9 @@ module.exports = (db) => {
     return res.redirect("/");
   });
 
+  
+
   return router;
 };
+
+
