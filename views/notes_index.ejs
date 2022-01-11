@@ -21,5 +21,18 @@
   <body>
       <!-- Navigation -->
       <%- include('partials/_header') %>
+
+      <ul>
+        <% notes.forEach(note => { %>
+          <li>
+            <p>Title: <%= note.title %></p>
+            <p>URL: <%= note.url  %></p>
+            <p>Description: <%= note.description %></p>
+            <p>Topic: <%= note.topic %></p>
+            <p><a href="/notes/<%= note.id %>">See MORE</a></p>
+          </li>
+        <% }); %>
+      </ul>
+
   </body>
 </html>

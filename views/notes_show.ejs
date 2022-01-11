@@ -24,5 +24,15 @@
       <!-- Navigation -->
       <%- include('partials/_header') %>
 
+      <% if(!note){ %>
+       <p>File is not found!</p>
+        <% } else { %>
+          <div>
+            <p>Title: <%= note.title %></p>
+            <p>URL: <%= note.url  %></p>
+            <p>Description: <%= note.description %></p>
+            <p>Topic: <%= note.topic %></p>
+          </div>
+        <% } %>
   </body>
 </html>

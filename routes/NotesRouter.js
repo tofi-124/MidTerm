@@ -36,8 +36,6 @@ module.exports = (db) => {
     db.query(`INSERT INTO URLs (title, url, description) VALUES ($1, $2, $3) RETURNING *`)
   })
 
-
-
   return router;
 };
 
