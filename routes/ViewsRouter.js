@@ -119,6 +119,8 @@ module.exports = (db) => {
     }
   });
 
+  //------------------- TOPIC ----------------------//
+
   router.get("/topic", async (req, res) => {
     const { user_id } = req.session; // checking cookies
     if (!user_id) {
@@ -172,6 +174,7 @@ module.exports = (db) => {
     }
   });
 
+  //------------------- COMMENT ----------------------//
   router.get("/comment", async (req, res) => {
     const { user_id } = req.session; // checking cookies
     if (!user_id) {
@@ -206,13 +209,13 @@ module.exports = (db) => {
         return res.redirect("/");
       }
       console.log(req.body)
-
       return res.redirect("/notes");
     } catch (error) {
       return res.status(400).send({ message: error.message });
     }
   });
 
+  //------------------- RATING ----------------------//
   router.get("/rating", async (req, res) => {
     const { user_id } = req.session; // checking cookies
     if (!user_id) {
@@ -226,7 +229,6 @@ module.exports = (db) => {
       if (!validUser) {
         return res.redirect("/");
       }
-
       return res.redirect("/notes");
     } catch (error) {
       return res.status(400).send({ message: error.message });
@@ -247,7 +249,6 @@ module.exports = (db) => {
         return res.redirect("/");
       }
       console.log(req.body)
-
       return res.redirect("/notes");
     } catch (error) {
       return res.status(400).send({ message: error.message });
@@ -256,10 +257,3 @@ module.exports = (db) => {
 
   return router;
 };
-
-//-----------Query to search by the topic-------------//
-//db.query(
-//     `SELECT title, url, description, rating, comment
-//   FROM URLs JOIN url_ratings ON URLs.id = url_id
-//   WHERE topic = $1;`, [topic]
-//   )
