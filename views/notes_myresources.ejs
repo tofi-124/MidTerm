@@ -9,37 +9,34 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
 
-    <link rel="stylesheet" href="./styles/layout.css">
+    <link rel="stylesheet" href="../public/styles/layout.css" />
 
     <!-- Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-
-
   </head>
 
   <body>
+    <!-- Navigation -->
+    <%- include('partials/_header') %>
 
-      <!-- Navigation -->
-      <%- include('partials/_header') %>
+    <div class="resource_container">
+      <% notes.forEach(note => { %>
+      <div class="resource_box">
+        <p>Title: <%= note.title %></p>
+        <p>URL: <%= note.url %></p>
+        <p>Description: <%= note.description %></p>
+        <p>Topic: <%= note.topic %></p>
+        <p><a href="/notes/<%= note.id %>">See MORE</a></p>
 
-      <ul>
-        <% notes.forEach(note => { %>
-          <li>
-            <p>Title: <%= note.title %></p>
-            <p>URL: <%= note.url  %></p>
-            <p>Description: <%= note.description %></p>
-            <p>Topic: <%= note.topic %></p>
-            <p><a href="/notes/<%= note.id %>">See MORE</a></p>
-          </li>
+        <button class="like"><i class="fas fa-heart"></i></button>
+      </div>
 
-          <button class="like"><i class="fas fa-heart"></i></button>
+      <% }); %>
+    </div>
 
-        <% }); %>
-      </ul>
-
-        <%- include('partials/_footer.ejs') %>
+    <%- include('partials/_footer.ejs') %>
   </body>
 </html>
