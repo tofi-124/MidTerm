@@ -1,13 +1,13 @@
 <header>
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
   <div class="container-fluid">
-    <% if(!user_id){ %>
+    <% if(!user){ %>
     <b>
       <a class="navbar-brand" href="/">Resource Wall</a>
     </b>
     <% } else { %>
       <b>
-        <a class="navbar-brand" href="/">Logged in As: <%= user_id %> </a>
+        <a class="navbar-brand" href="/">Logged in As: <%= user.name %> </a>
       </b>
     <% } %>
 
@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        <% if(!user_id){ %>
+        <% if(!user){ %>
           <li class="nav-item">
           <a class="nav-link" href="/login">Login</a>
         </li>
@@ -32,6 +32,9 @@
         <% } else { %>
           <li class="nav-item">
             <a class="nav-item nav-link" href="/notes/myresources">My Resources</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item nav-link" href="/notes/likes">Liked Resources</a>
           </li>
           <li class="nav-item">
             <a class="nav-item nav-link" href="/notes/new">Create New Resource</a>

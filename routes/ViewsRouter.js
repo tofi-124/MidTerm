@@ -13,7 +13,7 @@ module.exports = (db) => {
       return res.redirect("/notes");
     }
     const templateVars = {
-      user_id: null
+      user: null
     };
     return res.render("index", templateVars)
   });
@@ -25,7 +25,7 @@ module.exports = (db) => {
       return res.redirect("/notes");
     }
     const templateVars = {
-      user_id: null
+      user: null
     };
     return res.render("register", templateVars)
   });
@@ -36,7 +36,7 @@ module.exports = (db) => {
       return res.redirect("/notes");
     }
     const templateVars = {
-      user_id: null
+      user: null
     };
     return res.render("login", templateVars)
   });
@@ -57,7 +57,7 @@ module.exports = (db) => {
 
       const resources = await db.query(`SELECT * FROM URLs;`);
       const templateVars = {
-        user_id: validUser.rows[0].name,
+        user: validUser.rows[0],
         notes: resources.rows
       }
       return res.render("notes_index", templateVars);
@@ -79,7 +79,7 @@ module.exports = (db) => {
       }
 
       const templateVars = {
-        user_id: validUser.rows[0].name
+        user: validUser.rows[0]
       }
       return res.render("notes_new", templateVars);
     } catch (error) {
@@ -99,9 +99,9 @@ module.exports = (db) => {
         return res.redirect("/");
       }
 
-      const resources = await db.query(`SELECT * FROM URLs WHERE user_id = $1;`, [user_id]);
+      const resources = await db.query(`SELECT * FROM URLs WHERE user_id = $1;`, [validUser.rows[0].id]);
       const templateVars = {
-        user_id: validUser.rows[0].id,
+        user: validUser.rows[0],
         notes: resources.rows
       }
       return res.render("notes_myresources", templateVars);
@@ -111,8 +111,33 @@ module.exports = (db) => {
 
   });
 
+  router.get("/notes/likes", async (req, res) => {
+    const { user_id } = req.session; // checking cookies
+    if (!user_id) {
+      return res.redirect("/");
+    }
+
+    try {
+      const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [user_id]) //checking id from the db
+      if (!validUser) {
+        return res.redirect("/");
+      }
+
+      const resources = await db.query(`SELECT * FROM urls_liked WHERE user_id = $1;`, [validUser.rows[0].id]);
+      const templateVars = {
+        user: validUser.rows[0],
+        notes: resources.rows
+      }
+      return res.render("notes_likes", templateVars);
+    } catch (error) {
+      return res.status(400).send({message: error.message});
+    }
+
+  });
+
   return router;
 };
+
 
 
 //-----------Query to search by the topic-------------//

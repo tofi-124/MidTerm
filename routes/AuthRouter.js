@@ -85,7 +85,7 @@ module.exports = (db) => {
     return res.redirect("/");
   });
 
-  // Adding new notes
+  //----------------------------- Adding new notes -------------------------//
   router.post("/notes/new", async (req, res) => {
     const { user_id } = req.session;
     if (!user_id) {

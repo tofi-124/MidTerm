@@ -38,20 +38,22 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 
-      <ul>
-        <% notes.forEach(note => { %>
-          <li>
-            <p>Title: <%= note.title %></p>
-            <p>URL: <%= note.url  %></p>
-            <p>Description: <%= note.description %></p>
-            <p>Topic: <%= note.topic %></p>
-            <p><a href="/notes/<%= note.id %>">See MORE</a></p>
-          </li>
+        <ul>
+          <% notes.forEach(note => { %>
 
-          <button class="like"><i class="fas fa-heart"></i></button>
-          
-        <% }); %>
-      </ul>
+            <li>
+              <p>Title: <%= note.title %></p>
+              <p>URL: <%= note.url  %></p>
+              <p>Description: <%= note.description %></p>
+              <p>Topic: <%= note.topic %></p>
+              <p><a href="/notes/<%= note.id %>">See MORE</a></p>
+
+              <form action="/api/v1/notes/<%= note.id %>/like" method="POST">
+                <button type="submit" class="like"><i class="fas fa-heart"></i></button>
+              </form>
+            </li>
+          <% }); %>
+        </ul>
 
       <%- include('partials/_footer.ejs') %>
 
