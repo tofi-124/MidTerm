@@ -6,9 +6,8 @@ module.exports = (db) => {
     res.send("HELLO FROM NOTES!");
   });
 
-
   router.post("/:id/edit", (req, res) => {});
   router.post("/:id/delete", (req, res) => {});
-
+  
   return router;
 };

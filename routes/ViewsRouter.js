@@ -289,7 +289,7 @@ module.exports = (db) => {
         return res.redirect("/");
       }
       console.log(req.body)
-      return res.redirect("/notes/my_resources");
+      return res.redirect("/notes/myresources");
     } catch (error) {
       return res.status(400).send({ message: error.message });
     }
