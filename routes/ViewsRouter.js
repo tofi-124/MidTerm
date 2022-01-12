@@ -13,7 +13,7 @@ module.exports = (db) => {
       return res.redirect("/notes");
     }
     const templateVars = {
-      user_id: null,
+      user: null,
     };
     return res.render("index", templateVars);
   });
@@ -25,7 +25,7 @@ module.exports = (db) => {
       return res.redirect("/notes");
     }
     const templateVars = {
-      user_id: null,
+      user: null,
     };
     return res.render("register", templateVars);
   });
@@ -36,7 +36,7 @@ module.exports = (db) => {
       return res.redirect("/notes");
     }
     const templateVars = {
-      user_id: null,
+      user: null,
     };
     return res.render("login", templateVars);
   });
@@ -59,8 +59,8 @@ module.exports = (db) => {
 
       const resources = await db.query(`SELECT * FROM URLs;`);
       const templateVars = {
-        user_id: validUser.rows[0].name,
-        notes: resources.rows,
+        user: validUser.rows[0],
+        notes: resources.rows
       };
       return res.render("notes_index", templateVars);
     } catch (error) {
@@ -83,7 +83,7 @@ module.exports = (db) => {
       }
 
       const templateVars = {
-        user_id: validUser.rows[0].name,
+        user: validUser.rows[0]
       };
       return res.render("notes_new", templateVars);
     } catch (error) {
@@ -110,8 +110,8 @@ module.exports = (db) => {
         [user_id]
       );
       const templateVars = {
-        user_id: validUser.rows[0].name,
-        notes: resources.rows,
+        user: validUser.rows[0],
+        notes: resources.rows
       };
       return res.render("notes_myresources", templateVars);
     } catch (error) {
@@ -137,8 +137,8 @@ module.exports = (db) => {
 
       const resources = await db.query(`SELECT * FROM URLs;`);
       const templateVars = {
-        user_id: validUser.rows[0].name,
-        notes: resources.rows,
+        user: validUser.rows[0],
+        notes: resources.rows
       };
       return res.render("topic", templateVars);
     } catch (error) {
@@ -165,7 +165,7 @@ module.exports = (db) => {
         topic,
       ]);
       const templateVars = {
-        user_id: validUser.rows[0].name,
+        user: validUser.rows[0],
         notes: resources.rows,
       };
       return res.render("topic", templateVars);
