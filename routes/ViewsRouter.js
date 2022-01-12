@@ -255,5 +255,45 @@ module.exports = (db) => {
     }
   });
 
+  //------------------- DELETE ----------------------//
+  router.get("/delete", async (req, res) => {
+    const { user_id } = req.session; // checking cookies
+    if (!user_id) {
+      return res.redirect("/");
+    }
+
+    try {
+      const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [
+        user_id,
+      ]); //checking id from the db
+      if (!validUser) {
+        return res.redirect("/");
+      }
+      return res.redirect("/notes/my_resources");
+    } catch (error) {
+      return res.status(400).send({ message: error.message });
+    }
+  });
+
+  router.post("/delete", async (req, res) => {
+    const { user_id } = req.session; // checking cookies
+    if (!user_id) {
+      return res.redirect("/");
+    }
+
+    try {
+      const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [
+        user_id,
+      ]); //checking id from the db
+      if (!validUser) {
+        return res.redirect("/");
+      }
+      console.log(req.body)
+      return res.redirect("/notes/my_resources");
+    } catch (error) {
+      return res.status(400).send({ message: error.message });
+    }
+  });
+
   return router;
 };
