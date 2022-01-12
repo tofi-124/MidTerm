@@ -27,14 +27,14 @@
         <p>URL: <%= note.url %></p>
         <p class="text_item">Description: <%= note.description %></p>
         <p>Topic: <%= note.topic %></p>
-        <p><a href="/notes/<%= note.id %>">See MORE</a></p>
+        
 
-      <button class="like btn btn-outline-dark">
+      <button class="like btn btn-light">
         <i class="fas fa-heart"></i>
       </button>
       <button
         type="button"
-        class="btn btn-outline-dark"
+        class="btn btn-light"
         data-toggle="modal"
         data-target="#commentSection"
       >
@@ -42,13 +42,13 @@
       </button>
       <button
         type="button"
-        class="btn btn-outline-dark"
+        class="btn btn-light"
         data-toggle="modal"
         data-target="#ratingSection"
       >
         <i class="far fa-star"></i>
       </button>
-
+    </div>
       <% }); %>
     </ul>
   </div>
