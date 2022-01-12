@@ -9,7 +9,11 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
 
+<<<<<<< HEAD
     <link rel="stylesheet" href="./styles/layout.css" />
+=======
+    <link rel="stylesheet" href="../public/styles/layout.css" />
+>>>>>>> e7237befafa3caa3df25bcaa809fe22765f12a4a
 
     <!-- Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -22,9 +26,9 @@
     <!-- Navigation -->
     <%- include('partials/_header') %>
 
-    <ul>
+    <div class="resource_container">
       <% notes.forEach(note => { %>
-      <li>
+      <div class="resource_box">
         <p>Title: <%= note.title %></p>
         <p>URL: <%= note.url %></p>
         <p>Description: <%= note.description %></p>
@@ -50,7 +54,7 @@
       >
         <i class="far fa-star"></i>
       </button>
-
+</div>
       <% }); %>
     </ul>
 

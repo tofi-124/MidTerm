@@ -20,15 +20,14 @@
   <body>
     <!-- Navigation -->
     <%- include('partials/_header') %>
-
-    <ul>
+    <div class="resource_container">
       <% notes.forEach(note => { %>
-      <li>
+      <div class="resource_box">
         <p>Title: <%= note.title %></p>
         <p>URL: <%= note.url %></p>
-        <p>Description: <%= note.description %></p>
+        <p class="text_item">Description: <%= note.description %></p>
         <p>Topic: <%= note.topic %></p>
-      </li>
+        <p><a href="/notes/<%= note.id %>">See MORE</a></p>
 
       <button class="like btn btn-outline-dark">
         <i class="fas fa-heart"></i>
@@ -52,6 +51,7 @@
 
       <% }); %>
     </ul>
+  </div>
 
     <%- include('partials/_footer.ejs') %>
   </body>

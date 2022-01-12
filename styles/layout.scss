@@ -1,23 +1,88 @@
 // See: https://sass-lang.com/
 
-
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,700");
 
 html,
 body {
+  background: url(/images/blue.jpg);
   height: 100%;
   width: 100%;
   font-family: "Poppins" sans-serif;
   color: #222;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: no-wrap;
+  overflow-x: auto;
+  margin: 20px;
+}
+
+.jumbotron {
+  padding: 1rem;
+  border-radius: 0;
+  background-color: #001f2e;
+  background-image: url(http://www.transparenttextures.com/patterns/notebook-dark.png);
+  color: #ffdd00;
+  font-family: "Lobster", cursive;
 }
 
 .login {
-  padding-left: 1%;
+  text-align: center;
+  width: 25%;
+  margin-left: 510px;
+  margin-top: 80px;
+  background-color: #001f2e;
+  background-image: url(http://www.transparenttextures.com/patterns/notebook-dark.png);
+  color: #ffdd00;
+  font-family: "Lobster", cursive;
+  box-shadow: 10px 10px black;
+  padding: 1.5em;
 }
 
 .register {
-  padding-left: 1%;
+  text-align: center;
+  width: 25%;
+  margin-left: 510px;
+  margin-top: 80px;
+  background-color: #001f2e;
+  background-image: url(http://www.transparenttextures.com/patterns/notebook-dark.png);
+  color: #ffdd00;
+  font-family: "Lobster", cursive;
+  box-shadow: 10px 10px black;
+  padding: 1.5em;
 }
+
+.resource_container {
+  margin: 3em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.resource_box {
+  display: inline-block;
+  margin: 1.5em;
+  padding: 2em;
+  width: 300px;
+  height: 350px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.0);
+  border-radius: 20%;
+  overflow:hidden;
+  overflow-y: scroll;
+  text-overflow: ellipsis;
+  background-color: #001f2e;
+  background-image: url(http://www.transparenttextures.com/patterns/notebook-dark.png);
+  color: white;
+  font-size: 18px;
+
+}
+
+
+
 
 .navbar {
   padding: 0.8rem;
@@ -40,10 +105,6 @@ body {
   border: 1px solid #563d7c;
 }
 
-.jumbotron {
-  padding: 1rem;
-  border-radius: 0;
-}
 
 .padding {
   padding-bottom: 2rem;
@@ -151,5 +212,3 @@ figure {
 [class*="col-"] {
   padding: 1rem;
 }
-
-
