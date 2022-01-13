@@ -33,19 +33,21 @@
             <i class="fas fa-heart"></i>
           </button>
         </form>
+
         <button
           type="button"
           class="btn btn-light"
           data-toggle="modal"
-          data-target="#commentSection"
+          data-target="#<%= note.id %>"
         >
         <i class="fas fa-star"></i>
         </button>
       </div>
-      <!-- Modal Comment -->
+
+      <!-- Modal Comment/Rate -->
       <div
         class="modal fade"
-        id="commentSection"
+        id="<%= note.id %>"
         tabindex="-1"
         role="dialog"
         aria-labelledby="exampleModalCenterTitle"
@@ -65,7 +67,9 @@
               </button>
             </div>
             <div class="modal-body">
+
               <form action="/api/v1/notes/<%= note.id %>/comment_rate" method="POST">
+
                 <div class="form-group purple-border">
                   <label for="comment"></label>
                   <textarea
@@ -93,7 +97,7 @@
           </div>
         </div>    
       </div>
-      <% }); %>
+      <% }) %>
     <%- include('partials/_footer.ejs') %>
   </body>
 </html>
