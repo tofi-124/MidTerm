@@ -12,12 +12,30 @@ body {
   box-sizing: border-box;
 }
 
+
+
+
 .wrapper {
+  margin: 3em;
   display: flex;
-  flex-wrap: no-wrap;
-  overflow-x: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.image_col {
+  padding: 1em;
+  width: 300px;
+  height: 350px;
+  object-fit: fill;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 1);
+  border-radius: 10%;
+  display: flex;
   margin: 20px;
 }
+
+
 
 .jumbotron {
   padding: 1rem;
@@ -60,7 +78,33 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
 
+.create_resource_box {
+  display: inline-block;
+  margin: 1.5em;
+  padding: 2em;
+  width: 900px;
+  height: 650px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 1);
+  border-radius: 10%;
+  overflow: hidden;
+  overflow-y: scroll;
+  text-overflow: ellipsis;
+  background-color: #001f2e;
+  background-image: url(http://www.transparenttextures.com/patterns/notebook-dark.png);
+  color: white;
+  font-size: 18px;
+}
+
+.create_new {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.create_btn {
+  float: right;
+  padding: 0.5em;
 }
 
 .resource_box {
@@ -69,20 +113,16 @@ body {
   padding: 2em;
   width: 300px;
   height: 350px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.0);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 1);
   border-radius: 20%;
-  overflow:hidden;
+  overflow: hidden;
   overflow-y: scroll;
   text-overflow: ellipsis;
   background-color: #001f2e;
   background-image: url(http://www.transparenttextures.com/patterns/notebook-dark.png);
   color: white;
   font-size: 18px;
-
 }
-
-
-
 
 .navbar {
   padding: 0.8rem;
@@ -104,7 +144,6 @@ body {
   background-color: #563d7c;
   border: 1px solid #563d7c;
 }
-
 
 .padding {
   padding-bottom: 2rem;
