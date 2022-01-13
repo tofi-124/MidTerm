@@ -50,6 +50,14 @@ router.post("/:urlID/like", async (req, res) => {
 
     const { urlID } = req.params;
 
+    //---------------TEST--------------------//
+
+    // const likedURL = await db.query(`SELECT * FROM urls_users WHERE id = $1`, [urls_user.id])
+    if ([validUser.rows[0].id && urlID]) {
+      return res.status(400).send("Page was liked!");
+    }
+    //----------------------------------------//
+
     await db.query(
       `INSERT INTO urls_users (user_id, url_id)
       VALUES ($1, $2) RETURNING *;`,

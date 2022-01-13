@@ -23,21 +23,6 @@
       <!-- Navigation -->
       <%- include('partials/_header') %>
 
-
-      <h2>Filter Resources... <i class="fas fa-pencil-alt prefix"></i> </h2>
-
-      <form action="/api/v1/auth/notes" method="POST">
-
-        <div class="form-row">
-
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Topic" id="topic" name="topic">
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-
         <ul>
           <% notes.forEach(note => { %>
 
@@ -49,7 +34,7 @@
               <p><a href="/notes/<%= note.id %>">See MORE</a></p>
 
               <form action="/api/v1/notes/<%= note.id %>/like/remove" method="POST">
-                <button type="submit" class="like"><i class="fas fa-heart"></i>REMOVE</button>
+                <button type="submit" class="like"><i class="far fa-trash-alt"></i></button>
               </form>
             </li>
           <% }); %>

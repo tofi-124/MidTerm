@@ -21,46 +21,41 @@
     <!-- Navigation -->
     <%- include('partials/_header') %>
     <div class="resource_container">
+    
       <% notes.forEach(note => { %>
       <div class="resource_box">
         <p>Title: <%= note.title %></p>
         <p>URL: <%= note.url %></p>
         <p class="text_item">Description: <%= note.description %></p>
-        <p>Topic: <%= note.topic %></p>
-        
+        <p>Topic: <%= note.topic %></p>        
 
-      <button class="like btn btn-light">
-        <i class="fas fa-heart"></i>
-      </button>
-      <button
-        type="button"
-        class="btn btn-light"
-        data-toggle="modal"
-        data-target="#commentSection"
-      >
-        <i class="fas fa-comment"></i>
-      </button>
-      <button
-        type="button"
-        class="btn btn-light"
-        data-toggle="modal"
-        data-target="#ratingSection"
-      >
-        <i class="far fa-star"></i>
-      </button>
-    </div>
-      <% }); %>
-    </ul>
+         <form action="/api/v1/notes/<%= note.id %>/like" method="POST">
+           <button type="submit" class="like"><i class="fas fa-heart"></i></button>
+         </form>
+        <button
+          type="button"
+          class="btn btn-light"
+          data-toggle="modal"
+          data-target="#commentSection"
+        >
+          <i class="fas fa-comment"></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-light"
+          data-toggle="modal"
+          data-target="#ratingSection"
+        >
+          <i class="far fa-star"></i>
+        </button>
+     </div>
+     <% }); %>     
   </div>
 
-    <%- include('partials/_footer.ejs') %>
-  </body>
+  <%- include('partials/_footer.ejs') %> 
 
   <!-- Modal Comment -->
-  <div
-    class="modal fade"
-    id="commentSection"
-    tabindex="-1"
+  <div class="modal fade" id="commentSection" tabindex="-1"
     role="dialog"
     aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true"
@@ -91,6 +86,7 @@
               ></textarea>
             </div>
 
+
             <button for="comment" type="submit" class="btn btn-primary">
               Submit
             </button>
@@ -99,8 +95,7 @@
       </div>
     </div>
   </div>
-  <!-- Modal -->
-
+ 
   <!-- Modal rating -->
   <div
     class="modal fade"
@@ -144,5 +139,6 @@
       </div>
     </div>
   </div>
-  <!-- Modal -->
+  
+ </body>
 </html>

@@ -21,124 +21,83 @@
     <!-- Navigation -->
     <%- include('partials/_header') %>
     <div class="resource_container">
-    
       <% notes.forEach(note => { %>
       <div class="resource_box">
         <p>Title: <%= note.title %></p>
         <p>URL: <%= note.url %></p>
         <p class="text_item">Description: <%= note.description %></p>
-        <p>Topic: <%= note.topic %></p>        
+        <p>Topic: <%= note.topic %></p>
 
-         <form action="/api/v1/notes/<%= note.id %>/like" method="POST">
-           <button type="submit" class="like"><i class="fas fa-heart"></i></button>
-         </form>
+        <form action="/api/v1/notes/<%= note.id %>/like" method="POST">
+          <button type="submit" class="like">
+            <i class="fas fa-heart"></i>
+          </button>
+        </form>
+
         <button
           type="button"
           class="btn btn-light"
           data-toggle="modal"
-          data-target="#commentSection"
+          data-target="#<%= note.id %>"
         >
-          <i class="fas fa-comment"></i>
+        <i class="fas fa-star"></i>
         </button>
-        <button
-          type="button"
-          class="btn btn-light"
-          data-toggle="modal"
-          data-target="#ratingSection"
-        >
-          <i class="far fa-star"></i>
-        </button>
-     </div>
-     <% }); %>     
-  </div>
-
-  <%- include('partials/_footer.ejs') %> 
-
-  <!-- Modal Comment -->
-  <div class="modal fade" id="commentSection" tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Comment</h5>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="/comment" method="POST">
-            <div class="form-group purple-border">
-              <label for="comment"></label>
-              <textarea
-                placeholder="Your comment goes here"
-                class="form-control"
-                id="comment"
-                rows="1"
-                name="comment"
-              ></textarea>
-            </div>
-
-
-            <button for="comment" type="submit" class="btn btn-primary">
-              Submit
-            </button>
-          </form>
-        </div>
       </div>
-    </div>
-  </div>
- 
-  <!-- Modal rating -->
-  <div
-    class="modal fade"
-    id="ratingSection"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Rating</h5>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="/rating" method="POST">
-            <div class="form-group purple-border">
-              <label for="rating"></label>
-              <textarea
-                placeholder="Rate from 1 to 5"
-                class="form-control"
-                id="rating"
-                rows="1"
-                name="rating"
-                type="number"
-              ></textarea>
+
+      <!-- Modal Comment/Rate -->
+      <div
+        class="modal fade"
+        id="<%= note.id %>"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Comment and Rate</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-            <button for="rating" type="submit" class="btn btn-primary">
-              Submit
-            </button>
-          </form>
-        </div>
+            <div class="modal-body">
+
+              <form action="/api/v1/notes/<%= note.id %>/comment_rate" method="POST">
+
+                <div class="form-group purple-border">
+                  <label for="comment"></label>
+                  <textarea
+                    placeholder="Your comment goes here"
+                    class="form-control"
+                    id="comment"
+                    rows="1"
+                    name="comment"
+                  ></textarea>
+                  <br>
+                  <textarea
+                    placeholder="Your rating goes here"
+                    class="form-control"
+                    id="rate"
+                    rows="1"
+                    name="rate"
+                  ></textarea>
+                </div>
+
+                <button for="comment" type="submit" class="btn btn-primary">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>    
       </div>
-    </div>
-  </div>
-  
- </body>
+      <% }) %>
+    <%- include('partials/_footer.ejs') %>
+  </body>
 </html>

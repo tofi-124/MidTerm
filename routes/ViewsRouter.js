@@ -42,7 +42,6 @@ module.exports = (db) => {
   });
 
   //-------------------VIEW NOTES ROUTES ----------------------//
-
   router.get("/notes", async (req, res) => {
     const { user_id } = req.session; // checking cookies
     if (!user_id) {
