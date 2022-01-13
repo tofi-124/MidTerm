@@ -5,7 +5,7 @@ module.exports = (db) => {
   router.get("/hello", (req, res) => {
     res.send("HELLO FROM NOTES!");
   });
-  
+
  //----------------------------- ADD NEW NOTES -------------------------//
  router.post("/", async (req, res) => {
   const { user_id } = req.session;
@@ -53,8 +53,7 @@ router.post("/:urlID/like", async (req, res) => {
     await db.query(
       `INSERT INTO urls_users (user_id, url_id)
       VALUES ($1, $2) RETURNING *;`,
-      [validUser.rows[0].id, urlID]
-    );
+      [validUser.rows[0].id, urlID]);
     return res.redirect("/notes/likes");
   } catch (error) {
     return res.status(400).send({ message: error.message });
