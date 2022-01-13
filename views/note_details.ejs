@@ -21,13 +21,12 @@
     <!-- Navigation -->
     <%- include('partials/_header') %>
     <div class="resource_container" style="margin-top: 100px" >
-      <% notes.forEach(note => { %>
-      <div class="resource_box">
+
+      <div class="resource_box" style="width: 90%">
         <p>Title: <%= note.title %></p>
         <p>URL: <%= note.url %></p>
         <p class="text_item">Description: <%= note.description %></p>
         <p>Topic: <%= note.topic %></p>
-        <p><a href="/notes/<%= note.id %>">See more:</a></p>
 
         <form action="/api/v1/notes/<%= note.id %>/like" method="POST">
           <button type="submit" class="like">
@@ -93,7 +92,25 @@
           </div>
         </div>
       </div>
+
+      <div class="rating-container">
+        <h2>Rating</h2>
+        <% for(let i = 0; i < rating; i++){ %>
+            <i class="fas fa-star"></i>
+        <% } %>
+      </div>
+
+
+      <div class="comments-container">
+        <h2>Comments</h2>
+      <% comments.forEach(comment => { %>
+        <div class="comment">
+          <p><%= comment.comment %></p>
+        </div>
       <% }) %>
+    </div>
+    </div>
+
     <%- include('partials/_footer.ejs') %>
   </body>
 </html>

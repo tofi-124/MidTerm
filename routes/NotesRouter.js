@@ -50,15 +50,14 @@ module.exports = (db) => {
         `SELECT * FROM urls_users WHERE url_id = $1 AND user_id = $2;`, [urlID, validUser.rows[0].id]); //checking url from the db
       if (urlExists.rows[0]) {
         return res
-          .status(400)
-          .send("The url is already in your liked resources!");
+          .status(400).send("The url is already in your liked resources!");
       }
       await db.query(
         `INSERT INTO urls_users (user_id, url_id)
       VALUES ($1, $2) RETURNING *;`,
         [validUser.rows[0].id, urlID]
       );
-      return res.redirect("/notes/likes");
+      return res.redirect("/mylikes");
     } catch (error) {
       return res.status(400).send({ message: error.message });
     }
@@ -100,7 +99,7 @@ module.exports = (db) => {
         `UPDATE urls SET title = $1, topic = $2, url = $3, description = $4 WHERE id = $5 RETURNING *;`,
         [title, topic, url, description, urlID]
       );
-      return res.redirect("/notes/myresources");
+      return res.redirect("/myresources");
     } catch (error) {
       return res.status(400).send({ message: error.message });
     }
@@ -131,7 +130,7 @@ module.exports = (db) => {
         return res.status(404).send({ message: "You cannot delete this URL" });
       }
       await db.query(`DELETE FROM URLs WHERE id = $1;`, [urlID]);
-      return res.redirect("/notes/myresources");
+      return res.redirect("/myresources");
     } catch (error) {
       return res.status(400).send({ message: error.message });
     }
@@ -163,7 +162,7 @@ module.exports = (db) => {
     }
   });
   //-------------------------------REMOVE LIKED NOTES --------------------------//
-  router.post("/:urlID/remove", async (req, res) => {
+  router.post("/:urlID/unlike", async (req, res) => {
     const { user_id } = req.session;
     if (!user_id) {
       return res.status(400).send("You need to be logged in!");
@@ -174,11 +173,14 @@ module.exports = (db) => {
         return res.redirect("/");
       }
       const { urlID } = req.params;
-      console.log(validUser.rows[0].id)
+      const urlObject = await db.query(`SELECT * FROM URLs WHERE id = $1;`, [urlID]); //checking id from the db
+      if (!urlObject) {
+        return res.status(404).send({ message: "URL is not found" });
+      }
 
-      await db.query(`DELETE FROM urls_users WHERE id = $1 AND user_id = $2;`, [urlID, validUser.rows[0].id]);
+      await db.query(`DELETE FROM urls_users WHERE url_id = $1 AND user_id = $2;`, [urlObject.rows[0].id, validUser.rows[0].id]);
 
-      return res.redirect("/notes/likes");
+      return res.redirect("/mylikes");
     } catch (error) {
        return res.status(400).send({ message: error.message });
      }
@@ -197,13 +199,16 @@ module.exports = (db) => {
          return res.redirect("/");
        }
 
-       const { urlID } = req.params;
-       const { comment, rate } = req.body;
+      const { urlID } = req.params;
+      const urlObject = await db.query(`SELECT * FROM URLs WHERE id = $1;`, [urlID]); //checking id from the db
+      if (!urlObject) {
+        return res.status(404).send({ message: "URL is not found" });
+      }
 
-       await db.query(
-         `INSERT INTO url_ratings (rating,comment,user_id, url_id)
-       VALUES ($1, $2, $3, $4) RETURNING *;`,
-         [rate, comment, validUser.rows[0].id, urlID]
+      const { comment, rating } = req.body;
+
+       await db.query(`INSERT INTO url_ratings (rating, comment, user_id, url_id) VALUES ($1, $2, $3, $4) RETURNING *;`,
+         [rating, comment, validUser.rows[0].id, urlObject.rows[0].id]
        );
 
        return res.redirect("/");

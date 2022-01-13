@@ -32,9 +32,9 @@
               <p>URL: <%= note.url  %></p>
               <p>Description: <%= note.description %></p>
               <p>Topic: <%= note.topic %></p>
-              <p><a href="/notes/<%= note.id %>">See MORE</a></p>
+              <p><a href="/notes/<%= note.url_id %>">See MORE</a></p>
 
-              <form action="/api/v1/notes/<%= note.id %>/remove" method="POST">
+              <form action="/api/v1/notes/<%= note.url_id %>/unlike" method="POST">
                 <button type="submit" class="like"><i class="far fa-trash-alt"></i></button>
               </form>
             </li>
