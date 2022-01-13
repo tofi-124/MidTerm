@@ -174,12 +174,10 @@ module.exports = (db) => {
         return res.redirect("/");
       }
       const { urlID } = req.params;
-      const urlObject = await db.query(`SELECT * FROM URLs WHERE id = $1;`, [urlID]); //checking id from the db
-      if (!urlObject) {
-        return res.status(404).send({ message: "URL is not found" });
-      }
+      console.log(validUser.rows[0].id)
 
-      await db.query(`DELETE FROM urls_users WHERE url_id = $1 AND user_id = $2;`, [urlID, validUser.rows[0].id]);
+      await db.query(`DELETE FROM urls_users WHERE id = $1 AND user_id = $2;`, [urlID, validUser.rows[0].id]);
+
       return res.redirect("/notes/likes");
     } catch (error) {
        return res.status(400).send({ message: error.message });
