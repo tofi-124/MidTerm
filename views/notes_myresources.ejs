@@ -20,8 +20,8 @@
   <body>
     <!-- Navigation -->
     <%- include('partials/_header') %>
-    <div class="resource_container">
-    
+    <div class="resource_container" style="margin-top: 150px">
+
       <% notes.forEach(note => { %>
       <div class="resource_box">
         <p>Title: <%= note.title %></p>
@@ -36,10 +36,10 @@
               <button type="submit" class="btn btn-outline-danger">DELETE</button>
             </form>
      </div>
-     <% }); %>     
+     <% }); %>
   </div>
 
-  <%- include('partials/_footer.ejs') %> 
+  <%- include('partials/_footer.ejs') %>
 
   <!-- Modal Comment -->
   <div class="modal fade" id="commentSection" tabindex="-1"
@@ -83,6 +83,6 @@
     </div>
   </div>
 
-  
+
  </body>
 </html>
