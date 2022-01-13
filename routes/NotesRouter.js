@@ -57,6 +57,12 @@ module.exports = (db) => {
       }
 
       const { urlID } = req.params;
+      const urlExists = await db.query(
+        `SELECT * FROM urls_users WHERE id = $1;`,
+        [urlID]
+      );
+
+      console.log(urlExists.rows[0])
 
       await db.query(
         `INSERT INTO urls_users (user_id, url_id)
@@ -69,6 +75,7 @@ module.exports = (db) => {
     }
   });
 
+  //-------------------------------EDIT NOTES --------------------------//
   router.post("/:urlID/edit", async (req, res) => {
     const { user_id } = req.session;
     if (!user_id) {
@@ -117,7 +124,7 @@ module.exports = (db) => {
     }
   });
 
-  
+  //-------------------------------DELETE NOTES --------------------------//
   router.post("/:urlID/delete", async (req, res) => {
     const { user_id } = req.session;
     if (!user_id) {
@@ -153,6 +160,7 @@ module.exports = (db) => {
     }
   });
 
+  //-------------------------------FILTER NOTES --------------------------//
   router.post("/topic", async (req, res) => {
     const { user_id } = req.session; // checking cookies
     if (!user_id) {
@@ -160,20 +168,61 @@ module.exports = (db) => {
     }
 
     try {
-      const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [user_id]) //checking id from the db
+      const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [
+        user_id,
+      ]); //checking id from the db
       if (!validUser) {
         return res.redirect("/");
       }
 
-      const {topic} = req.body;
-      const resources = await db.query(`SELECT * FROM URLs WHERE topic = $1;`,[topic]);
+      const { topic } = req.body;
+      const resources = await db.query(`SELECT * FROM URLs WHERE topic = $1;`, [
+        topic,
+      ]);
       const templateVars = {
         user: validUser.rows[0],
-        notes: resources.rows
-      }
+        notes: resources.rows,
+      };
       return res.render("topic", templateVars);
     } catch (error) {
-      return res.status(400).send({message: error.message});
+      return res.status(400).send({ message: error.message });
+    }
+  });
+
+  //-------------------------------REMOVE LIKED NOTES --------------------------//
+  router.post("/:urlID/like/remove", async (req, res) => {
+    const { user_id } = req.session;
+    if (!user_id) {
+      return res.status(400).send("You need to be logged in!");
+    }
+
+    try {
+      const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [
+        user_id,
+      ]); //checking id from the db
+      if (!validUser) {
+        return res.redirect("/");
+      }
+
+      const { urlID } = req.params;
+      const urlObject = await db.query(
+        `SELECT * FROM urls_users WHERE id = $1;`,
+        [urlID]
+      ); //checking id from the db
+      if (!urlObject) {
+        return res.status(404).send({ message: "URL is not found" });
+      }
+
+      const urlBelongsToUser =
+        urlObject.rows[0].user_id === validUser.rows[0].id;
+      if (!urlBelongsToUser) {
+        return res.status(404).send({ message: "You cannot delete this URL" });
+      }
+
+      await db.query(`DELETE FROM urls_users WHERE id = $1;`, [urlID]);
+      return res.redirect("/notes/likes");
+    } catch (error) {
+      return res.status(400).send({ message: error.message });
     }
   });
   return router;
