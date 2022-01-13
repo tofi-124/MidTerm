@@ -58,11 +58,14 @@ module.exports = (db) => {
 
       const { urlID } = req.params;
       const urlExists = await db.query(
-        `SELECT * FROM urls_users WHERE id = $1;`,
+        `SELECT * FROM urls_users WHERE url_id = $1;`,
         [urlID]
-      );
-
-      console.log(urlExists.rows[0])
+      ); //checking url from the db
+      if (urlExists.rows[0]) {
+        return res
+          .status(400)
+          .send("The url is already in your liked resources!");
+      }
 
       await db.query(
         `INSERT INTO urls_users (user_id, url_id)
