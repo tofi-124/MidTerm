@@ -9,53 +9,121 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
 
-    <link rel="stylesheet" href="./styles/layout.css">
+    <link rel="stylesheet" href="./styles/layout.css" />
 
     <!-- Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-
-
   </head>
-
   <body>
+    <!-- Navigation -->
+    <%- include('partials/_header') %>
+    <div class="resource_container">
+    
+      <% notes.forEach(note => { %>
+      <div class="resource_box">
+        <p>Title: <%= note.title %></p>
+        <p>URL: <%= note.url %></p>
+        <p class="text_item">Description: <%= note.description %></p>
+        <p>Topic: <%= note.topic %></p>        
 
-      <!-- Navigation -->
-      <%- include('partials/_header') %>
-
-      <h2>Filter Resources... <i class="fas fa-pencil-alt prefix"></i> </h2>
-
-      <form action="/api/v1/auth/notes/myresources" method="POST">
-
-        <div class="form-row">
-
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Topic" id="topic" name="topic">
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-
-      <ul>
-        <% notes.forEach(note => { %>
-          <li>
-            <p>Title: <%= note.title %></p>
-            <p>URL: <%= note.url  %></p>
-            <p>Description: <%= note.description %></p>
-            <p>Topic: <%= note.topic %></p>
-            <p><a href="/notes/<%= note.id %>">See MORE</a></p>
-            <p><a href="/notes/<%= note.id %>/edit" class="btn btn-outline-warning">EDIT</a></p>
+         <p><a href="/notes/<%= note.id %>/edit" class="btn btn-outline-warning">EDIT</a></p>
             <form method="POST" action="/api/v1/notes/<%= note.id %>/delete">
               <button type="submit" class="btn btn-outline-danger">DELETE</button>
             </form>
-          </li>
+     </div>
+     <% }); %>     
+  </div>
 
-        <% }); %>
-      </ul>
+  <%- include('partials/_footer.ejs') %> 
 
-        <%- include('partials/_footer.ejs') %>
-  </body>
+  <!-- Modal Comment -->
+  <div class="modal fade" id="commentSection" tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Comment</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/comment" method="POST">
+            <div class="form-group purple-border">
+              <label for="comment"></label>
+              <textarea
+                placeholder="Your comment goes here"
+                class="form-control"
+                id="comment"
+                rows="1"
+                name="comment"
+              ></textarea>
+            </div>
+
+
+            <button for="comment" type="submit" class="btn btn-primary">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Modal rating -->
+  <div
+    class="modal fade"
+    id="ratingSection"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Rating</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/rating" method="POST">
+            <div class="form-group purple-border">
+              <label for="rating"></label>
+              <textarea
+                placeholder="Rate from 1 to 5"
+                class="form-control"
+                id="rating"
+                rows="1"
+                name="rating"
+                type="number"
+              ></textarea>
+            </div>
+            <button for="rating" type="submit" class="btn btn-primary">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ </body>
 </html>
