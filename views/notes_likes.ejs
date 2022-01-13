@@ -19,15 +19,14 @@
 
 
   </head>
-
   <body>
-
       <!-- Navigation -->
       <%- include('partials/_header') %>
 
+
       <h2>Filter Resources... <i class="fas fa-pencil-alt prefix"></i> </h2>
 
-      <form action="/api/v1/auth/notes/likes" method="POST">
+      <form action="/api/v1/auth/notes" method="POST">
 
         <div class="form-row">
 
@@ -39,28 +38,24 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 
-      <ul>
-        <% notes.forEach(note => { %>
-          <li>
-            <p>Title: <%= note.title %></p>
-            <p>URL: <%= note.url  %></p>
-            <p>Description: <%= note.description %></p>
-            <p>Topic: <%= note.topic %></p>
-            <p><a href="/notes/<%= note.id %>">See MORE</a></p>
-          </li>
+        <ul>
+          <% notes.forEach(note => { %>
 
-          <td>
-            <a href="/api/v1/auth/notes/edit"> <button type="submit" class="btn btn-outline-primary">Edit</button></a>
-          </td>
+            <li>
+              <p>Title: <%= note.title %></p>
+              <p>URL: <%= note.url  %></p>
+              <p>Description: <%= note.description %></p>
+              <p>Topic: <%= note.topic %></p>
+              <p><a href="/notes/<%= note.id %>">See MORE</a></p>
 
-          <td>
-            <form method="POST" action="/api/v1/auth/notes/myresources/delete">
-              <button type="submit" class="btn btn-outline-danger">Delete</button>
-            </form>
-          </td>
-        <% }); %>
-      </ul>
+              <form action="/api/v1/notes/<%= note.id %>/like/remove" method="POST">
+                <button type="submit" class="like"><i class="fas fa-heart"></i>REMOVE</button>
+              </form>
+            </li>
+          <% }); %>
+        </ul>
 
-        <%- include('partials/_footer.ejs') %>
+      <%- include('partials/_footer.ejs') %>
+
   </body>
 </html>
