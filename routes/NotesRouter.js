@@ -228,5 +228,36 @@ module.exports = (db) => {
       return res.status(400).send({ message: error.message });
     }
   });
+
+  //------------------------------- Comment/Rate --------------------------//
+  router.post("/:urlID/comment_rate", async (req, res) => {
+    const { user_id } = req.session;
+    if (!user_id) {
+      return res.status(400).send("You need to be logged in!");
+    }
+
+    try {
+      const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [
+        user_id,
+      ]); //checking id from the db
+      if (!validUser) {
+        return res.redirect("/");
+      }
+
+      const { urlID } = req.params;
+      const { comment, rate } = req.body;
+
+      await db.query(
+        `INSERT INTO url_ratings (rating,comment,user_id, url_id)
+      VALUES ($1, $2, $3, $4) RETURNING *;`,
+        [rate, comment, validUser.rows[0].id, urlID]
+      );
+
+      return res.redirect("/");
+    } catch (error) {
+      return res.status(400).send({ message: error.message });
+    }
+  });
+
   return router;
 };
