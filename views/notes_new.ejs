@@ -17,9 +17,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-
   </head>
   <body>
+
       <!-- Navigation -->
       <%- include('partials/_header') %>
 
@@ -27,7 +27,7 @@
 <div class="create_resource_box">
   <h2 class="create_new">Create a new resource... <i class="fas fa-pencil-alt prefix"></i> </h2>
 
-  <form action="/api/v1/auth/notes/new" method="POST">
+  <form action="/api/v1/notes" method="POST">
 
     <div class="form-row">
       <div class="col">
@@ -51,8 +51,6 @@
     <button type="submit" class="btn btn-primary create_btn">Submit</button>
   </form>
 
-</div>
-</div>
 </div>
 </div>
 

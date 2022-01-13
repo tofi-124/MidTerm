@@ -7,7 +7,9 @@
     </b>
     <% } else { %>
       <b>
-        <a class="navbar-brand" href="/">Resource Wall</a>
+
+        <a class="navbar-brand" href="/">Logged in As: <%= user.name %> </a>
+
       </b>
 
       <b>
@@ -42,6 +44,9 @@
             <a class="nav-item nav-link" href="/notes/myresources">My Resources</a>
           </li>
 
+          <li class="nav-item">
+            <a class="nav-item nav-link" href="/notes/likes">Liked Resources</a>
+          </li>
           <li class="nav-item">
             <a class="nav-item nav-link" href="/notes/new">Create New Resource</a>
           </li>
