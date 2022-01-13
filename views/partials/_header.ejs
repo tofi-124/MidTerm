@@ -7,11 +7,8 @@
     </b>
     <% } else { %>
       <b>
-
         <a class="navbar-brand" href="/">Logged in As: <%= user.name %> </a>
-
       </b>
-
     <% } %>
 
     <button
@@ -48,7 +45,7 @@
           </li>
 
           <li class="nav-item">
-            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModalCenter">
+            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#search">
               <i class="fas fa-search"></i>
             </button>
           </li>
@@ -68,7 +65,7 @@
 
 
   <!-- Modal -->
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" id="search" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -78,7 +75,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="/topic" method="POST">
+          <form action="/api/v1/notes/topic/" method="POST">
 
             <div class="form-group purple-border">
               <label for="topic"></label>
