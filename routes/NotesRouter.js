@@ -41,17 +41,13 @@ module.exports = (db) => {
       return res.status(400).send("You need to be logged in!");
     }
     try {
-      const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [
-        user_id,
-      ]); //checking id from the db
+      const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [user_id]); //checking id from the db
       if (!validUser) {
         return res.redirect("/");
       }
       const { urlID } = req.params;
       const urlExists = await db.query(
-        `SELECT * FROM urls_users WHERE url_id = $1;`,
-        [urlID]
-      ); //checking url from the db
+        `SELECT * FROM urls_users WHERE url_id = $1 AND user_id = $2;`, [urlID, validUser.rows[0].id]); //checking url from the db
       if (urlExists.rows[0]) {
         return res
           .status(400)
@@ -167,32 +163,23 @@ module.exports = (db) => {
     }
   });
   //-------------------------------REMOVE LIKED NOTES --------------------------//
-  router.post("/:urlID/like/remove", async (req, res) => {
+  router.post("/:urlID/remove", async (req, res) => {
     const { user_id } = req.session;
     if (!user_id) {
       return res.status(400).send("You need to be logged in!");
     }
     try {
-      const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [
-        user_id,
-      ]); //checking id from the db
+      const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [user_id]); //checking id from the db
       if (!validUser) {
         return res.redirect("/");
       }
       const { urlID } = req.params;
-      const urlObject = await db.query(
-        `SELECT * FROM urls_users WHERE id = $1;`,
-        [urlID]
-      ); //checking id from the db
+      const urlObject = await db.query(`SELECT * FROM URLs WHERE id = $1;`, [urlID]); //checking id from the db
       if (!urlObject) {
         return res.status(404).send({ message: "URL is not found" });
       }
-      const urlBelongsToUser =
-        urlObject.rows[0].user_id === validUser.rows[0].id;
-      if (!urlBelongsToUser) {
-        return res.status(404).send({ message: "You cannot delete this URL" });
-      }
-      await db.query(`DELETE FROM urls_users WHERE id = $1;`, [urlID]);
+
+      await db.query(`DELETE FROM urls_users WHERE url_id = $1 AND user_id = $2;`, [urlID, validUser.rows[0].id]);
       return res.redirect("/notes/likes");
     } catch (error) {
        return res.status(400).send({ message: error.message });
@@ -207,9 +194,7 @@ module.exports = (db) => {
      }
 
      try {
-       const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [
-         user_id,
-       ]); //checking id from the db
+       const validUser = await db.query(`SELECT * FROM users WHERE id = $1;`, [user_id]); //checking id from the db
        if (!validUser) {
          return res.redirect("/");
        }

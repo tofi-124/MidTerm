@@ -33,7 +33,7 @@
               <p>Topic: <%= note.topic %></p>
               <p><a href="/notes/<%= note.id %>">See MORE</a></p>
 
-              <form action="/api/v1/notes/<%= note.id %>/like/remove" method="POST">
+              <form action="/api/v1/notes/<%= note.id %>/remove" method="POST">
                 <button type="submit" class="like"><i class="far fa-trash-alt"></i></button>
               </form>
             </li>
