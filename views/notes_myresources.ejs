@@ -9,7 +9,7 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
 
-    <link rel="stylesheet" href="./styles/layout.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
 
     <!-- Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -27,7 +27,9 @@
         <p>Title: <%= note.title %></p>
         <p>URL: <%= note.url %></p>
         <p class="text_item">Description: <%= note.description %></p>
-        <p>Topic: <%= note.topic %></p>        
+
+        <p>Topic: <%= note.topic %></p>
+
 
          <p><a href="/notes/<%= note.id %>/edit" class="btn btn-outline-warning">EDIT</a></p>
             <form method="POST" action="/api/v1/notes/<%= note.id %>/delete">
