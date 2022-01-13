@@ -12,6 +12,10 @@ body {
   box-sizing: border-box;
 }
 
+.header-footer {
+  position: fixed;
+    width: -webkit-fill-available;
+}
 
 .wrapper {
   margin: 3em;
@@ -34,14 +38,26 @@ body {
 }
 
 
-
 .jumbotron {
+
   padding: 1rem;
   border-radius: 0;
   background-color: #001f2e;
   background-image: url(http://www.transparenttextures.com/patterns/notebook-dark.png);
   color: #ffdd00;
   font-family: "Lobster", cursive;
+}
+
+.text-center {
+  margin-top: 80px;
+}
+
+.lead {
+  font-size: 20px;
+}
+
+.click {
+  margin-right: 25px;
 }
 
 .login {
