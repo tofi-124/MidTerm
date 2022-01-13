@@ -6,9 +6,9 @@ VALUES
 
 INSERT INTO URLs (title, url, description, topic, user_id)
 VALUES
-('GitHub Page', 'https://github.com/', 'My projects', 'IT', 1),
-('GitHub Page', 'https://github.com/', 'My projects', 'IT', 1),
-('GitHub Page', 'https://github.com/', 'My projects', 'IT', 1);
+('GitHub Page -1 ', 'https://github.com/', 'My projects', 'IT', 1),
+('GitHub Page - 2', 'https://github.com/', 'My projects', 'IT', 1),
+('GitHub Page - 3', 'https://github.com/', 'My projects', 'IT', 1);
 
 
 INSERT INTO url_ratings (rating, comment, user_id, url_id)
