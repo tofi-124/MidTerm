@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Profile Page</title>
+    <title>Landing Page</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -21,54 +21,28 @@
     <!-- Navigation -->
     <%- include('partials/_header') %>
     <div class="resource_container">
+    
       <% notes.forEach(note => { %>
       <div class="resource_box">
         <p>Title: <%= note.title %></p>
         <p>URL: <%= note.url %></p>
         <p class="text_item">Description: <%= note.description %></p>
+
         <p>Topic: <%= note.topic %></p>
 
 
-      <button class="like btn btn-light">
-        <i class="fas fa-heart"></i>
-      </button>
-      <button
-        type="button"
-        class="btn btn-light"
-        data-toggle="modal"
-        data-target="#commentSection"
-      >
-        <i class="fas fa-comment"></i>
-      </button>
-      <button
-        type="button"
-        class="btn btn-light"
-        data-toggle="modal"
-        data-target="#ratingSection"
-      >
-        <i class="far fa-star"></i>
-      </button>
-      <button
-        type="button"
-        class="btn btn-light"
-        data-toggle="modal"
-        data-target="#delSection"
-      >
-      <i class="fas fa-trash-alt"></i>
-      </button>
-    </div>
-      <% }); %>
-    </ul>
+         <p><a href="/notes/<%= note.id %>/edit" class="btn btn-outline-warning">EDIT</a></p>
+            <form method="POST" action="/api/v1/notes/<%= note.id %>/delete">
+              <button type="submit" class="btn btn-outline-danger">DELETE</button>
+            </form>
+     </div>
+     <% }); %>     
   </div>
 
-    <%- include('partials/_footer.ejs') %>
-  </body>
+  <%- include('partials/_footer.ejs') %> 
 
   <!-- Modal Comment -->
-  <div
-    class="modal fade"
-    id="commentSection"
-    tabindex="-1"
+  <div class="modal fade" id="commentSection" tabindex="-1"
     role="dialog"
     aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true"
@@ -99,6 +73,7 @@
               ></textarea>
             </div>
 
+
             <button for="comment" type="submit" class="btn btn-primary">
               Submit
             </button>
@@ -107,8 +82,7 @@
       </div>
     </div>
   </div>
-  <!-- Modal -->
-
+ 
   <!-- Modal rating -->
   <div
     class="modal fade"
@@ -152,45 +126,6 @@
       </div>
     </div>
   </div>
-  <!-- Modal -->
-
-  <!-- Modal del -->
-  <div
-    class="modal fade"
-    id="delSection"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Delete</h5>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="/delete" method="POST">
-            <div class="form-group purple-border">
-              <label for="del"></label>
-              <div class="modal-body">
-                <p>Are you sure you want to delete?</p>
-              </div>
-            </div>
-            <button for="del" type="submit" class="btn btn-primary">
-              Submit
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Modal -->
+  
+ </body>
 </html>
