@@ -1,6 +1,6 @@
 -- Drop and recreate Users table (Example)
 
-DROP TABLE IF EXISTS urls_liked CASCADE;
+DROP TABLE IF EXISTS urls_users CASCADE;
 DROP TABLE IF EXISTS url_ratings CASCADE;
 DROP TABLE IF EXISTS URLs CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
