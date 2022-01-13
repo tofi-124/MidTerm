@@ -16,15 +16,17 @@
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
   </head>
-  <link rel="stylesheet" href="./styles/layout.css">
+  <link rel="stylesheet" href="/styles/layout.css">
 
   <header>
     <!-- Navigation -->
     <%- include('partials/_header') %>
   </header>
   <body>
+    <div class="resource_container" style="margin-top: 150px">
+      <div class="create_resource_box">
     <main style="margin: 1em">
-          <h2>Edit resource... <i class="fas fa-pencil-alt prefix"></i> </h2>
+          <h2 class="create_new">Edit resource... <i class="fas fa-pencil-alt prefix"></i> </h2>
 
           <form action="/api/v1/notes/<%= note.id %>/edit" method="POST">
 
@@ -55,6 +57,8 @@
         </div>
       </div>
     </main>
+    </div>
+  </div>
 
     <%- include('partials/_footer.ejs') %>
   </body>
