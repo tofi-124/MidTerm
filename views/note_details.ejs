@@ -22,12 +22,14 @@
     <%- include('partials/_header') %>
     <div class="resource_container" style="margin-top: 100px" >
 
-      <div class="resource_box" style="width: 90%">
+      <div class="resource_box" width="80px">
         <p>Title: <%= note.title %></p>
         <p>URL: <%= note.url %></p>
         <p class="text_item">Description: <%= note.description %></p>
         <p>Topic: <%= note.topic %></p>
 
+
+        <div class="two-logs">
         <form action="/api/v1/notes/<%= note.id %>/like" method="POST">
           <button type="submit" class="like">
             <i class="fas fa-heart"></i>
@@ -36,14 +38,14 @@
 
         <button
           type="button"
-          class="btn btn-light"
+          class="btn btn-light star-log"
           data-toggle="modal"
           data-target="#<%= note.id %>"
         >
         <i class="fas fa-star"></i>
         </button>
       </div>
-
+    </div>
       <!-- Modal Comment/Rate -->
       <div
         class="modal fade"
@@ -93,22 +95,25 @@
         </div>
       </div>
 
-      <div class="rating-container">
-        <h2>Rating</h2>
-        <% for(let i = 0; i < rating; i++){ %>
-            <i class="fas fa-star"></i>
-        <% } %>
-      </div>
+<div class="rating-comments">
+  <div class="rating-container">
+    <h2>Rating</h2>
+    <% for(let i = 0; i < rating; i++){ %>
+        <i class="five-stars fas fa-star"></i>
+    <% } %>
+  </div>
 
 
-      <div class="comments-container">
-        <h2>Comments</h2>
-      <% comments.forEach(comment => { %>
-        <div class="comment">
-          <p><%= comment.comment %></p>
-        </div>
-      <% }) %>
+  <div class="comments-container">
+    <h2 class="comments-box">Comments</h2>
+  <% comments.forEach(comment => { %>
+    <div class="comment">
+      <p><%= comment.comment %></p>
     </div>
+  <% }) %>
+</div>
+</div>
+
     </div>
 
     <%- include('partials/_footer.ejs') %>

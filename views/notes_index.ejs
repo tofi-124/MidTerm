@@ -29,6 +29,7 @@
         <p>Topic: <%= note.topic %></p>
         <p><a href="/notes/<%= note.id %>">See more:</a></p>
 
+        <div class="two-logs">
         <form action="/api/v1/notes/<%= note.id %>/like" method="POST">
           <button type="submit" class="like">
             <i class="fas fa-heart"></i>
@@ -37,12 +38,13 @@
 
         <button
           type="button"
-          class="btn btn-light"
+          class="btn btn-light comment-log"
           data-toggle="modal"
           data-target="#<%= note.id %>"
         >
         <i class="fas fa-star"></i>
         </button>
+      </div>
       </div>
 
       <!-- Modal Comment/Rate -->
