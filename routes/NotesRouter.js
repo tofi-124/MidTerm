@@ -149,12 +149,10 @@ module.exports = (db) => {
         return res.redirect("/");
       }
       const { topic } = req.body;
-      const resources = await db.query(`SELECT * FROM URLs WHERE topic = $1;`, [
-        topic,
-      ]);
+      const resources = await db.query(`SELECT * FROM URLs WHERE topic = $1;`, [topic]);
       const templateVars = {
         user: validUser.rows[0],
-        notes: resources.rows,
+        notes: resources.rows
       };
       return res.render("topic", templateVars);
     } catch (error) {
