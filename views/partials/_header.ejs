@@ -1,0 +1,97 @@
+<header class="header-footer">
+<nav class="navbar navbar-expand-md navbar-light bg-warning fixed-top">
+  <div class="container-fluid">
+    <% if(!user){ %>
+    <b>
+      <a class="navbar-brand" href="/">Resource Wall</a>
+    </b>
+    <% } else { %>
+      <b>
+        <a class="navbar-brand" href="/">Logged in As: <%= user.name %> </a>
+      </b>
+    <% } %>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarResponsive"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <% if(!user){ %>
+          <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/register">Register</a>
+        </li>
+        <% } else { %>
+
+
+
+          <li class="nav-item">
+            <a class="nav-item nav-link" href="/myresources">My Resources</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-item nav-link" href="/mylikes">Liked Resources</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item nav-link" href="/new">Create New Resource</a>
+          </li>
+
+          <li class="nav-item">
+            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#search">
+              <i class="fas fa-search"></i>
+            </button>
+          </li>
+
+          <li>
+            <form action="/api/v1/auth/logout" method="post">
+            <button class="btn btn-outline-dark" type="submit">Logout</button>
+          </form>
+          </li>
+
+          <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="search" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Filter Resources... <i class="fas fa-filter"></i></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/api/v1/notes/topic/" method="POST">
+
+            <div class="form-group purple-border">
+              <label for="topic"></label>
+              <textarea placeholder="Topic" class="form-control" id="topic" rows="1" name="topic"></textarea>
+            </div>
+
+            <button for="topic" type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ <!-- Modal -->
+
+
+

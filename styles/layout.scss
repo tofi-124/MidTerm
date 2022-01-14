@@ -1,6 +1,301 @@
 // See: https://sass-lang.com/
 
-body,
-html {
-  margin: 0;
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,700");
+
+html,
+body {
+  background: url(/images/blue.jpg);
+  height: 100%;
+  width: 100%;
+  font-family: "Poppins" sans-serif;
+  color: #222;
+  box-sizing: border-box;
+}
+
+.header-footer {
+  // position: fixed;
+  width: -webkit-fill-available;
+}
+
+.wrapper {
+  margin: 3em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.image_col {
+  padding: 1em;
+  width: 300px;
+  height: 350px;
+  object-fit: fill;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 1);
+  border-radius: 10%;
+  display: flex;
+  margin: 20px;
+}
+
+.rating-comments {
+  margin-top: 180px;
+  color: #001f2e;
+  display: flex;
+  flex-direction: column;
+}
+
+.five-stars{
+  color: #ffdd00;
+}
+
+.comments-box {
+  margin-top: 5px;
+}
+
+.two-logs {
+  margin-top: 50px;
+  display: flex;
+}
+
+.like {
+  height: 40px;
+  width: 40px;
+  margin-right: 15px;
+}
+
+.comment-log {
+  height: 40px;
+  width: 40px;
+  margin-right: 15px
+}
+
+.star-logo {
+  margin-left: 15px;
+}
+
+.jumbotron {
+  padding: 1rem;
+  border-radius: 0;
+  background-color: #001f2e;
+  background-image: url(http://www.transparenttextures.com/patterns/notebook-dark.png);
+  color: #ffdd00;
+  font-family: "Lobster", cursive;
+}
+
+.text-center {
+  margin-top: 80px;
+}
+
+.lead {
+  font-size: 20px;
+}
+
+.click {
+  margin-right: 25px;
+}
+
+.login {
+  text-align: center;
+  width: 25%;
+  margin-left: 510px;
+  margin-top: 150px;
+  background-color: #001f2e;
+  background-image: url(http://www.transparenttextures.com/patterns/notebook-dark.png);
+  color: #ffdd00;
+  font-family: "Lobster", cursive;
+  box-shadow: 10px 10px black;
+  padding: 1.5em;
+}
+
+.register {
+  text-align: center;
+  width: 25%;
+  margin-left: 510px;
+  margin-top: 80px;
+  background-color: #001f2e;
+  background-image: url(http://www.transparenttextures.com/patterns/notebook-dark.png);
+  color: #ffdd00;
+  font-family: "Lobster", cursive;
+  box-shadow: 10px 10px black;
+  padding: 1.5em;
+}
+
+.resource_container {
+  margin: 3em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.create_resource_box {
+  display: inline-block;
+  margin: 1.5em;
+  padding: 2em;
+  width: 900px;
+  height: 650px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 1);
+  border-radius: 10%;
+  overflow: hidden;
+  overflow-y: scroll;
+  text-overflow: ellipsis;
+  background-color: #001f2e;
+  background-image: url(http://www.transparenttextures.com/patterns/notebook-dark.png);
+  color: white;
+  font-size: 18px;
+}
+
+.create_new {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.create_btn {
+  float: right;
+  padding: 0.5em;
+}
+
+.resource_box {
+  display: inline-block;
+  margin: 1.5em;
+  padding: 2em;
+  width: 300px;
+  height: 350px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 1);
+  border-radius: 20%;
+  overflow: hidden;
+  overflow-y: scroll;
+  text-overflow: ellipsis;
+  background-color: #001f2e;
+  background-image: url(http://www.transparenttextures.com/patterns/notebook-dark.png);
+  color: white;
+  font-size: 18px;
+}
+
+.navbar {
+  padding: 0.8rem;
+}
+
+.navbar-nav li {
+  padding-right: 20px;
+}
+
+.nav-link {
+  font-size: 1.1em !important;
+}
+
+.btn-primary {
+  background-color: #6648b1;
+  border: 1px solid #6648b1;
+}
+.btn-primary:hover {
+  background-color: #563d7c;
+  border: 1px solid #563d7c;
+}
+
+.padding {
+  padding-bottom: 2rem;
+}
+
+.welcome {
+  width: 75%;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+.welcome hr {
+  border-top: 2px solid #b4b4b4;
+  width: 95%;
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.fa-server {
+  color: #e54d26;
+}
+.fa-bold {
+  color: #563d7c;
+}
+.fa-css3 {
+  color: #2163af;
+}
+.fa-server,
+.fa-bold,
+.fa-css3 {
+  font-size: 2rem;
+  margin: 1rem;
+}
+
+hr.light {
+  border-top: 1px solid #d5d5d5;
+  width: 75%;
+  margin-top: 0.8rem;
+  margin-bottom: 1rem;
+}
+hr.light-100 {
+  border-top: 1px solid #d5d5d5;
+  width: 100%;
+  margin-top: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+/*---Media Queries --*/
+@media (max-width: 992px) {
+  .social a {
+    font-size: 4em;
+    padding: 2rem;
+  }
+}
+@media (max-width: 768px) {
+  .display-4 {
+    font-size: 200%;
+  }
+
+  .social a {
+    font-size: 2.5em;
+    padding: 1.2rem;
+  }
+}
+@media (max-width: 576px) {
+  .display-4 {
+    font-size: 160%;
+  }
+
+  .social a {
+    font-size: 2em;
+    padding: 0.7rem;
+  }
+}
+
+/*--- Fixed Background Image --*/
+figure {
+  position: relative;
+  width: 100%;
+  height: 60%;
+  margin: 0 !important;
+}
+.fixed-wrap {
+  clip: rect(0, auto, auto, 0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#fixed {
+  background-image: url("img/mac.png");
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
+}
+/*--- Bootstrap Padding Fix --*/
+[class*="col-"] {
+  padding: 1rem;
 }

@@ -1,20 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Landing Page</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
 
-<head>
-  <title>Home Page</title>
+    <link rel="stylesheet" href="./styles/layout.css" />
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
-</head>
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
-  <h1>Have fun! 🥔</h1>
-</body>
+  <body>
+    <div>
+<!-- Navigation -->
+<%- include('partials/_header') %>
+    </div>
 
+
+    <!--- Welcome Section -->
+    <div class="jumbotron">
+      <div class="text-center">
+        <h1 class="display-4">Resource Wall</h1>
+        <p class="lead">A web app to save your resources</p>
+        <hr class="my-4" />
+
+        <p class="lead">
+          <a class="btn btn-light btn-lg click" href="/login" role="button">Login</a>
+          <a class="btn btn-light btn-lg" href="/register" role="button"
+            >Register</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <img class="image_col" src="/images/cooking.jpg" />
+      <img class="image_col" src="/images/bake.jpg" />
+      <img class="image_col" src="/images/draw.jpg" />
+      <img class="image_col" src="/images/guitar.jpg" />
+      <img class="image_col" src="/images/coding.jpg" />
+      <img class="image_col" src="/images/yoga.jpg" />
+    </div>
+
+    <%- include('partials/_footer.ejs') %>
+  </body>
 </html>
