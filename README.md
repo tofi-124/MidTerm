@@ -1,7 +1,7 @@
 Resource Wall
 A web app to save your resources
 =========
-This full stack webapp is built so that you could save any of your resources into it, as a user you can register and login. any user can comment or rate a resource and other users can see the average rating as well as the comment made by other users.
+This full stack webapp is designed to allow you to save any of your resources, as well as register and login as a user. Any user can rate or comment on a resource, and other users can see the average rating as well as other users' comments.
 
 # Home-page
 
