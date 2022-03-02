@@ -5,8 +5,8 @@ This full stack webapp is built so that you could save any of your resources int
 
 # Home-page
 
-<img src="./public/images/1.jpg" />
-<img src="/images/2.jpg" />
+<img src="./public/images/1" />
+<img src="/images/2.png" />
 
 <img src="/"/>
 
