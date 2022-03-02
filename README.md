@@ -6,17 +6,15 @@ This full stack webapp is built so that you could save any of your resources int
 # Home-page
 
 <img src="./public/images/1.png" />
-<img src="/images/2.png" />
-
-<img src="/"/>
+<img src="./public/images/2.png" />
 
 # Resource-Page
 
-<img src="/images/3.jpg" />
+<img src="./public/images/3.png" />
 
 # Add resource-Page
 
-<img src="/images/4.jpg" />
+<img src="./public/images/4.png" />
 
 ## Getting Started
 
